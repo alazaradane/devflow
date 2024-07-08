@@ -6,7 +6,7 @@ import { Button } from '../ui/button'
 const HomeFilters = () => {
     const active = 'newest'
   return (
-    <div className=' ml-24 mt-10 hidden flex-wrap gap-3 md:flex '>
+    <div className=' ml-24 mt-10 hidden flex-wrap items-center justify-center gap-3 md:flex xl:mr-48 '>
         {HomePageFilters.map((item)=>(
             <Button key={item.value} onClick={()=>{}} 
                 className={` body-medium rounded-lg px-6 py-3 capitalize shadow-none ${active === item.value 
