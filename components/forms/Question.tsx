@@ -83,7 +83,7 @@ const Question = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className=" flex w-full flex-col gap-10">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="-ml-12 flex w-full flex-col gap-10 max-sm:ml-2  ">
         <FormField
           control={form.control}
           name="title"
@@ -94,7 +94,7 @@ const Question = () => {
               </FormLabel>
               <FormControl className=" mt-3.5">
                 <Input
-                  className=" no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
+                  className=" no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] w-[38rem] border max-sm:w-[25rem]"
                   placeholder="shadcn" {...field}
                 />
               </FormControl>
@@ -113,8 +113,8 @@ const Question = () => {
               <FormLabel className="paragraph-semibold text-dark400_light800">
                 Detailed explanation of your problem <span className="text-primary-500">*</span>
               </FormLabel>
-              <FormControl className=" mt-3.5">
-                <Editor
+              <FormControl className=" mt-3.5 w-[38rem]">
+                <Editor 
                   apiKey={process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY}
                   onInit={(_evt, editor) => {
                     // @ts-ignore
@@ -122,6 +122,7 @@ const Question = () => {
                   initialValue=''
                   init={{
                     height: 350,
+                    width:550,
                     menubar: false,
                     plugins: [
                       'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
@@ -136,7 +137,7 @@ const Question = () => {
                   }}
                 />
               </FormControl>
-              <FormDescription className=" body-regular mt-2.5 text-light-500">
+              <FormDescription className=" body-regular mt-2.5 text-light-500 max-sm:w-[28rem]">
                 Introduce the problem expand what you put on the title. Minimum 20 characters 
               </FormDescription>
               <FormMessage className=" text-red-500" />
@@ -154,7 +155,7 @@ const Question = () => {
               <FormControl className=" mt-3.5">
                 <>
                   <Input
-                    className=" no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
+                    className=" no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border max-sm:w-[25rem]"
                     placeholder="Add tags"
                     onKeyDown={(e)=>handleInputkeyDown(e, field)}
                   />
@@ -181,7 +182,7 @@ const Question = () => {
                   }
                 </>
               </FormControl>
-              <FormDescription className=" body-regular mt-2.5 text-light-500">
+              <FormDescription className=" body-regular mt-2.5 text-light-500 max-sm:w-[28rem]">
                 Add up to 3 tags to describe what your question is about. You need to press enter to add a tag
               </FormDescription>
               <FormMessage className=" text-red-500" />
