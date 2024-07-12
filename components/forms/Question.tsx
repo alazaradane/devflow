@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input"
 import { QuestionsSchema } from "@/lib/validations"
 import { Badge } from '../ui/badge';
 import Image from 'next/image';
+import { createQuestion } from '@/lib/actions/question.action';
 
 const type:any = 'create'
 
@@ -38,18 +39,18 @@ const Question = () => {
   });
 
   
-  function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
     setIsSubmitting(true)
     try {
-      // API request
+      await createQuestion({})
     } catch (error) {
-      
+        console.error('Error submitting question:', error);
     } finally{
       setIsSubmitting(false)
     }
-
   }
 
+  
   const handleInputkeyDown = (e: React.KeyboardEvent<HTMLInputElement>, field:any)=>{
       if(e.key==='Enter' && field.name ==='tags'){
         e.preventDefault();
@@ -119,6 +120,8 @@ const Question = () => {
                   onInit={(_evt, editor) => {
                     // @ts-ignore
                     editorRef.current = editor}}
+                  onBlur={field.onBlur}
+                  onEditorChange={(content)=>field.onChange(content)}
                   initialValue=''
                   init={{
                     height: 350,
