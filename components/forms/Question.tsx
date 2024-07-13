@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-return-assign */
 "use client"
 import React, { useRef, useState } from 'react';
@@ -20,14 +21,20 @@ import { QuestionsSchema } from "@/lib/validations"
 import { Badge } from '../ui/badge';
 import Image from 'next/image';
 import { createQuestion } from '@/lib/actions/question.action';
+import {useRouter, usePathname} from 'next/navigation'
 
 const type:any = 'create'
 
+interface Props{
+  mongoUserId:string
+}
 
-const Question = () => {
+const Question = ({mongoUserId}:Props) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const editorRef = useRef(null);
+  const router = useRouter()
+  const pathname = usePathname()
 
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
@@ -42,7 +49,13 @@ const Question = () => {
   async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
     setIsSubmitting(true)
     try {
-      await createQuestion({})
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(mongoUserId)
+      })
+      router.push('/')
     } catch (error) {
         console.error('Error submitting question:', error);
     } finally{
