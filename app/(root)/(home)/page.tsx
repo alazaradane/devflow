@@ -9,46 +9,13 @@ import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
 import Link from "next/link";
 import React from "react";
+import { getQuestions } from "@/lib/actions/question.action";
 
-const questions = [
-  {
-    _id: "1",
-    title:
-      "Best practices for data fetching in a Next.js application with Server-Side",
-    tags: [
-      { _id: "1", name: "Next.js" },
-      { _id: "2", name: "React.js" },
-    ],
-    author: {
-      _id: "1",
-      name: "John Doe",
-      picture: "https://example.com/johndoe.jpg",
-    },
-    upvotes: 10000000,
-    views: 100000,
-    answers: [],
-    createdAt: new Date("2024-01-01T12:00:00.000Z"),
-  },
-  {
-    _id: "2",
-    title: "How to center a div",
-    tags: [
-      { _id: "3", name: "HTML" },
-      { _id: "4", name: "CSS" },
-    ],
-    author: {
-      _id: "1",
-      name: "John Doe",
-      picture: "https://example.com/johndoe.jpg",
-    },
-    upvotes: 100000000,
-    views: 10000,
-    answers: [],
-    createdAt: new Date("2021-09-01T12:00:00.000Z"),
-  },
-];
 
-const Home = () => {
+const Home = async () => {
+
+  const result = await getQuestions({})
+  
   return (
     <>
       <div className=" mx-9 flex w-full flex-col-reverse justify-between gap-2 px-6 sm:flex-row sm:items-center">
@@ -78,8 +45,8 @@ const Home = () => {
       <HomeFilters />
 
       <div className=" mt-10 flex w-full flex-col items-center justify-center gap-6 ">
-        {questions.length > 0 ? (
-          questions.map((question) => (
+        {result.questions.length > 0 ? (
+          result.questions.map((question) => (
             <QuestionCard
               key={question._id}
               _id={question._id}
