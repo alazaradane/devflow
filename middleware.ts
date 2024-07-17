@@ -1,4 +1,4 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
 const isPublicRoute = createRouteMatcher([ 
   '/',
@@ -13,8 +13,18 @@ const isPublicRoute = createRouteMatcher([
   '/jobs'
 ]);
 
+// Define the ignored routes
+const isIgnoredRoute = createRouteMatcher([
+  '/api/webhook',
+  '/api/chatgpt'
+]);
+
 export default clerkMiddleware((auth, request) => {
-  if(!isPublicRoute(request)) {
+  if (isIgnoredRoute(request)) {
+    return; // Skip middleware logic for ignored routes
+  }
+
+  if (!isPublicRoute(request)) {
     auth().protect();
   }
 });
