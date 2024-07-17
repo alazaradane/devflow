@@ -21,7 +21,7 @@ const isIgnoredRoute = createRouteMatcher([
 
 export default clerkMiddleware((auth, request) => {
   if (isIgnoredRoute(request)) {
-    return; // Skip middleware logic for ignored routes
+    return; 
   }
 
   if (!isPublicRoute(request)) {
