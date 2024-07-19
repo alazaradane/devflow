@@ -55,7 +55,7 @@ export async function POST(req: Request) {
   // For this guide, you simply log the payload to the console
   const eventType = evt.type;
 
-  console.log({eventType})
+  console.log({eventType}) // Checking event
   console.log("Function triggered");
   console.log("Headers received", { svix_id, svix_timestamp, svix_signature });
   console.log("Payload received", payload);
