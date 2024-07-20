@@ -1,9 +1,9 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
-const isPublicRoute = createRouteMatcher([ 
+const isPublicRoute = createRouteMatcher([
   '/',
   '/api/webhook',
-  '/sign-in(.*)', 
+  '/sign-in(.*)',
   '/sign-up(.*)',
   'question/:id',
   '/tags',
@@ -19,15 +19,17 @@ const isIgnoredRoute = createRouteMatcher([
 ]);
 
 export default clerkMiddleware((auth, request) => {
-  console.log('Middleware triggered for request:', request.url);
+  const url = new URL(request.url);
+
+  console.log(`Middleware triggered for request: ${url.pathname}`);
 
   if (isIgnoredRoute(request)) {
-    console.log('Request ignored by middleware:', request.url);
-    return; 
+    console.log(`Request ignored by middleware: ${url.pathname}`);
+    return;
   }
 
   if (!isPublicRoute(request)) {
-    console.log('Request requires authentication:', request.url);
+    console.log(`Request requires authentication: ${url.pathname}`);
     auth().protect();
   }
 });

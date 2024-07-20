@@ -6,8 +6,13 @@ import { createUser, updateuser, deleteUser } from '@/lib/actions/user.action';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
-  // const WEBHOOK_SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET;
-  if (!process.env.NEXT_CLERK_WEBHOOK_SECRET) {
+  console.log('Webhook handler invoked');
+
+  const url = new URL(req.url);
+  console.log(`Webhook handler URL: ${url.pathname}`);
+
+  const WEBHOOK_SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET;
+  if (!WEBHOOK_SECRET) {
     console.error('Missing WEBHOOK_SECRET');
     throw new Error('Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local');
   }
@@ -25,9 +30,11 @@ export async function POST(req: Request) {
   }
 
   const payload = await req.json();
+  console.log('Payload received:', payload);
+
   const body = JSON.stringify(payload);
 
-  const wh = new Webhook(process.env.NEXT_CLERK_WEBHOOK_SECRET);
+  const wh = new Webhook(WEBHOOK_SECRET);
 
   let evt: WebhookEvent;
 
@@ -46,10 +53,9 @@ export async function POST(req: Request) {
 
   const eventType = evt.type;
 
-  console.log('Event Type:', eventType); // Detailed logging
+  console.log('Event Type:', eventType);
   console.log('Function triggered');
   console.log('Headers received', { svix_id, svix_timestamp, svix_signature });
-  console.log('Payload received', payload);
 
   if (eventType === 'user.created') {
     const { id, email_addresses, image_url, username, first_name, last_name } = evt.data;
