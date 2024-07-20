@@ -6,7 +6,7 @@ export const connectToDatabase = async () => {
 
   mongoose.set('strictQuery', true);
 
-  if(!process.env.MONGODB_URL) {
+  if (!process.env.MONGODB_URL) {
     return console.log('MISSING MONGODB_URL');
   }
 
@@ -17,7 +17,8 @@ export const connectToDatabase = async () => {
 
   try {
     await mongoose.connect(process.env.MONGODB_URL, {
-      dbName: 'devflow'
+      dbName: 'devflow',
+      serverSelectionTimeoutMS: 30000, // Increase timeout to 30 seconds
     });
 
     isConnected = true;

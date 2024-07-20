@@ -13,18 +13,21 @@ const isPublicRoute = createRouteMatcher([
   '/jobs'
 ]);
 
-// Define the ignored routes
 const isIgnoredRoute = createRouteMatcher([
   '/api/webhook',
   '/api/chatgpt'
 ]);
 
 export default clerkMiddleware((auth, request) => {
+  console.log('Middleware triggered for request:', request.url);
+
   if (isIgnoredRoute(request)) {
+    console.log('Request ignored by middleware:', request.url);
     return; 
   }
 
   if (!isPublicRoute(request)) {
+    console.log('Request requires authentication:', request.url);
     auth().protect();
   }
 });
