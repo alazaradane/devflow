@@ -4,6 +4,18 @@ const nextConfig = {
         mdxRs: true,
         serverComponentsExternalPackages: ["mongoose"]
     },
+    images:{
+        remotePatterns:[
+            {
+                protocol: 'http',
+                hostname:'*'
+            },
+            {
+                protocol: 'https',
+                hostname: '*'
+            }
+        ]
+    },
     webpack(config) {
         config.experiments = { ...config.experiments, topLevelAwait: true };
         return config;
