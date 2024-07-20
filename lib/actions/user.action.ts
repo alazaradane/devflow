@@ -29,7 +29,7 @@ export async function createUser(userData: CreateUserParams){
     }
 }
 
-export async function updateuser(params: UpdateUserParams){
+export async function updateUser(params: UpdateUserParams){
     try {
         connectToDatabase()
         const { clerkId, updateData, path} = params
