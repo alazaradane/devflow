@@ -9,8 +9,10 @@ import RenderTag from '@/components/shared/RenderTag'
 import Answer from '@/components/forms/Answer'
 import { auth } from '@clerk/nextjs/server'
 import { getUserById } from '@/lib/actions/user.action'
+import AllAnswers from '@/components/shared/AllAnswers'
+import Votes from '@/components/shared/Votes'
 
-const Page = async ({params, searchParams}) => {
+const Page = async ({params, searchParams}:any) => {
     const result = await getQuestionById({questionId: params.id})
     const {userId: clerkId}= auth()
 
@@ -34,7 +36,7 @@ const Page = async ({params, searchParams}) => {
                     <p className="paragraph-semibold text-dark300_light700">{result.author.name}</p>
                 </Link>
                 <div className=' flex justify-end'>
-                    VOTING
+                    <Votes/>
                 </div>
             </div>
             <h2 className=' h2-semibold text-dark200_light900 mt-3.5 w-full text-left'>{result.title}</h2>
@@ -75,6 +77,13 @@ const Page = async ({params, searchParams}) => {
                 />
             ))}
         </div>
+
+
+        <AllAnswers
+            questionId={result._id}
+            userId={JSON.stringify(mongoUser._id)}
+            totalAnswers={result.answers.length}
+        />
 
         <Answer
             question={result.content}
