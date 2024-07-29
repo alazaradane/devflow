@@ -26,11 +26,11 @@ const Votes = ({
 }:Props) => {
 
   const handleSave = ()=>{
-
+    
   }
 
   const handleVote = (action:string)=>{
-    
+
   }
 
   return (
