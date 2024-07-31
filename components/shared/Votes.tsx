@@ -83,7 +83,6 @@ const Votes = ({
       }
       
       // TODO: show toast
-      return ;
     }
   }
 
@@ -106,7 +105,7 @@ const Votes = ({
             <p className=' subtle-medium text-dark400_light900'>{formatandDivideNumber(upvotes)}</p>
           </div>
         </div>
-        <div className='flex-center gap-2.5'>
+        <div className='flex-center gap-1.5'>
           <div className='flex-center gap-1.5'>
             <Image
               src={hasdownVoted ? '/assets/icons/downvoted.svg' : '/assets/icons/downvote.svg'}
@@ -121,7 +120,9 @@ const Votes = ({
             <p className=' subtle-medium text-dark400_light900'>{formatandDivideNumber(upvotes)}</p>
           </div>
         </div>
-          <Image
+        {
+          type === 'Question' && (
+            <Image
               src={hasSaved ? '/assets/icons/star-filled.svg' : '/assets/icons/star-red.svg'}
               width={18}
               height={18}
@@ -129,6 +130,9 @@ const Votes = ({
               className='cursor-pointer'
               onClick={handleSave}
             />
+          )
+        }
+          
     </div>
   )
 }

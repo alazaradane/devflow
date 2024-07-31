@@ -27,7 +27,7 @@ export async function getAnswer(params: GetAnswersParams ){
     try {
         connectToDatabase();
         const {questionId} = params;
-        const answers = Answer.find({question:questionId})
+        const answers = await Answer.find({question:questionId})
             .populate("author", "_id clerkId name picture")
             .sort({createdAt:-1})
 
@@ -40,12 +40,12 @@ export async function getAnswer(params: GetAnswersParams ){
 
 export async function upvoteAnswer(params: AnswerVoteParams) {
     try {
-        await connectToDatabase();
+         connectToDatabase();
         const { answerId, userId, hasupVoted, hasdownVoted, path } = params;
 
         let updateQuery = {};
         if (hasupVoted) {
-            updateQuery = { $pull: { upvotes: userId } };
+            updateQuery = { $pull: { upVote: userId } };
         } else if (hasdownVoted) {
             updateQuery = {
                 $pull: { downVote: userId },
@@ -69,7 +69,7 @@ export async function upvoteAnswer(params: AnswerVoteParams) {
 
 export async function downvoteAnswer(params: AnswerVoteParams) {
     try {
-        await connectToDatabase();
+        connectToDatabase();
         const { answerId, userId, hasupVoted, hasdownVoted, path } = params;
 
         let updateQuery = {};
