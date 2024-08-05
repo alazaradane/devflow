@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { getMonthYear } from '@/lib/utils'
 import ProfileLink from '@/components/shared/ProfileLink'
 import Stats from '@/components/shared/Stats'
+import QuestionTab from '@/components/shared/QuestionTab'
 
 
 const Page = async ({params, searchParams}:URLProps) => {
@@ -72,8 +73,11 @@ const Page = async ({params, searchParams}:URLProps) => {
                 </SignedIn>
             </div>
         </div>
-        
-        <Stats/>
+
+        <Stats
+            totalQuestions={userInfo.totalQuestions}
+            totalAnswers={userInfo.totalAnswers}
+        />
 
         <div className='mt-10 flex gap-10 max-md:ml-24'>
             <Tabs defaultValue="Top-posts" className="flex-1">
@@ -82,7 +86,7 @@ const Page = async ({params, searchParams}:URLProps) => {
                     <TabsTrigger value="answers" className='tab'>Answers</TabsTrigger>
                 </TabsList>
                 <TabsContent value="top-posts">
-                    POST
+                    <QuestionTab/>
                 </TabsContent>
                 <TabsContent value="answers">
                     ANSWERS
