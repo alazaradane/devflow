@@ -49,3 +49,10 @@ export const formatandDivideNumber = (num: number): string => {
   }
   return num.toString();
 };
+
+export const getMonthYear = (date: Date): string => {
+  const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long' };
+  return date.toLocaleString('en-US', options);
+}
+
+
