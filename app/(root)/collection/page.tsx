@@ -46,7 +46,7 @@ const Home = async () => {
 
 <div className="ml-[10rem] mt-10 flex flex-col items-center justify-center gap-6 px-4 sm:px-0">
   {result.questions.length > 0 ? (
-    result.questions.map((question) => (
+    result.questions.map((question:any) => (
       <QuestionCard
         key={question._id}
         _id={question._id}
