@@ -40,15 +40,18 @@ export const getTimestamp = (createdAt: Date): string => {
   }
 };
 
-export const formatandDivideNumber = (num: number): string => {
-  if (num >= 1_000_000) {
-    return (num / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
+export const formatandDivideNumber = (num: number = 0): string => {
+  if (num >= 1000000) {
+    const formattedNum = (num / 1000000).toFixed(1);
+    return `${formattedNum}M`;
+  } else if (num >= 1000) {
+    const formattedNum = (num / 1000).toFixed(1);
+    return `${formattedNum}K`;
+  } else {
+    return num.toString();
   }
-  if (num >= 1_000) {
-    return (num / 1_000).toFixed(1).replace(/\.0$/, '') + 'k';
-  }
-  return num.toString();
 };
+
 
 export const getMonthYear = (date: Date): string => {
   const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long' };
